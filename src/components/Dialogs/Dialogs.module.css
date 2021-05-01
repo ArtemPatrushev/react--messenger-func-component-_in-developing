@@ -1,0 +1,42 @@
+.dialogs {
+  display: flex;
+}
+
+.dialogs_users {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  border-right: 1px solid lightgreen;
+}
+
+.dialogs_users_name {
+  margin-top: 20px;
+}
+
+.dialogs_users_name a {
+  text-decoration: none;
+  color: #000;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  align-items: center;
+}
+
+.user_message {
+  margin-top: 20px;
+}
+
+button {
+  height: 20px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.dialogForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}

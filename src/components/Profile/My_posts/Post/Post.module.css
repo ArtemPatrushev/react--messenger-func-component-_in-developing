@@ -1,0 +1,21 @@
+.user_post_item {
+  display: flex;
+  flex-direction: column;
+}
+
+.user_post_content {
+  display: flex;
+  align-items: center;
+}
+
+.user_post_content > div {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: lightpink;
+  margin-right: 10px;
+}
+
+.user_post_item > span {
+  display: block;
+}
