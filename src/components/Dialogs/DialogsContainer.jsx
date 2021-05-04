@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Dialogs from './Dialogs';
-import { insertNewMessageTextActionCreator, addMessageActionCreator } from '../../redux/dialogsReducer';     // импортировали actionCreater функции из state
+import { addMessage, insertNewMessageText } from '../../redux/dialogsReducer';     // импортировали actionCreater функции из state
 
 
 // для функции f1 и f2 connect берет сам из store state и перердает его в качестве аргумента (при помощи getState())
@@ -12,17 +12,20 @@ const mapStateToProps = (state) => {    // превращает часть state
     }
 };
 
-const mapDispatchToProps = (dispatch) => { // таким же образом передает в Dialogs callback функции как props
-    return {
-        OnAddMessageClick: () => {
-            dispatch(addMessageActionCreator());
-        },
-        OnNewMessageTextChange: (newText) => {
-            dispatch(insertNewMessageTextActionCreator(newText));
-        }
-    }
-};
+// const mapDispatchToProps = (dispatch) => { // таким же образом передает в Dialogs callback функции как props
+//     return {
+//         OnAddMessageClick: () => {
+//             dispatch(addMessageActionCreator());
+//         },
+//         OnNewMessageTextChange: (newText) => {
+//             dispatch(insertNewMessageTextActionCreator(newText));
+//         }
+//     }
+// };
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+const DialogsContainer = connect(mapStateToProps, {
+    addMessage,
+    insertNewMessageText
+})(Dialogs);
 
 export default DialogsContainer;
