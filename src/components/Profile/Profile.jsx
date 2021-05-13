@@ -7,7 +7,7 @@ const Profile = (props) => {
    // также MyPostsContainer теперь отдаем весь store, тк это контейнер и он модет быть грязным, чтобы нам не заботиться о том, что ему тут передавать
 
     return <div>
-        <ProfileInfo profile={props.profile} />
+        <ProfileInfo profile={props.profile} status={props.status} updateStatusThC={props.updateStatusThC} />
         <MyPostsContainer />
     </div>
 }

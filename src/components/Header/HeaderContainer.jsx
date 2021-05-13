@@ -1,20 +1,23 @@
 import React from 'react';
 import Header from './Header';
-import axios from 'axios';
 import { connect } from 'react-redux';
-import {setAuthUserData} from '../../redux/auth-reducer';
+import {getAuthUserDataInfoThunkCreator} from '../../redux/auth-reducer';
 
 class HeaderContainer extends React.Component {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, { withCredentials: true })  // withCredentials --- значит, что передаем запрос на API со своими параметрами пользователя
-            .then(response => {
-                if (response.data.resultCode === 0) {     // в response придет ответ с API, проверяем response.data.resultCode === 0 (из документации API samurai значит, что авторизован) --- вызываем setAuthUserData (данные пользователя)
-                    let { id, email, login } = response.data.data;    //  response.data.data.login (две data) --- тк у axios стандартно данные в data и бэкэнд разработчик в API тоже упаковал данные в data
-                    this.props.setAuthUserData(id, email, login);    // здесь важна последовательность переменных
-                    
-                }
-            });
+        // usersAPI.setAuthUserDataInfo()         // вместо API запроса напрямую, вызываем метод, в котором лежит запрос из api.js
+        //     .then(data => {
+        //         if (data.resultCode === 0) {     // в response придет ответ с API, проверяем response.data.resultCode === 0 (из документации API samurai значит, что авторизован) --- вызываем setAuthUserData (данные пользователя)
+        //             let { id, email, login } = data.data;    //  response.data.data.login (две data) --- тк у axios стандартно данные в data и бэкэнд разработчик в API тоже упаковал данные в data
+        //             this.props.setAuthUserData(id, email, login);       // здесь важна последовательность переменных
+        //             usersAPI.getProfilePhoto()
+        //                 .then(photo => {
+        //                     this.props.setUserPhoto(photo);
+        //                 })   
+        //         }
+        //     });
+        this.props.getAuthUserDataInfoThunkCreator();
     }
 
     render() {
@@ -24,7 +27,9 @@ class HeaderContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
-    login: state.auth.login
+    login: state.auth.login,
+    // photo: state.auth.photo
+    // profile: state.profilePage.profile,
 });
 
-export default connect(mapStateToProps, { setAuthUserData })(HeaderContainer);
+export default connect(mapStateToProps, { getAuthUserDataInfoThunkCreator })(HeaderContainer);

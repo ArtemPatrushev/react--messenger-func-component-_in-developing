@@ -1,45 +1,46 @@
 import { connect } from 'react-redux';
-import { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching} from '../../redux/userReducer';    // импортировали actionCreater функции из state
-import axios from 'axios';
+import { followSuccess, unfollowSuccess, setCurrentPage, toggleFollowingProgress, getUsersThunkCreator, followThunkCreator, unfollowThunkCreator} from '../../redux/userReducer';    // импортировали actionCreater функции из state
 import React from 'react';
 import Users from './Users';
 import Preloader from '../Common/Preloader/Preloader';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 
 class UsersContainer extends React.Component {
 
-    // запрос был через данный метод по клику на кнопку (отображение пользователей) с проверкой if (это еще от функциональной компоненты), т.к. она постоянно перерисовывалсь
-    // getUsers = () => {
-    //     if (this.props.users.length === 0) {
-    //         axios.get('https://social-network.samuraijs.com/api/1.0/users')
-    //             .then(response => {
-    //                 this.props.setUsers(response.data.items);
-    //             });
-    //         // запрос на server API через axios, чтобы получить пользователей из БД
-
-    //     };
-    // }
-
-    // теперь реализация через componentDidMount (жизненный цикл класса) --- вызывается один раз после монтирования объекта в DOM --- пользователи отрисуются один раз --- не надо условий if
+    // реализация через componentDidMount (жизненный цикл класса) --- вызывается один раз после монтирования объекта в DOM --- пользователи отрисуются один раз --- не надо условий if
     componentDidMount() {
-        this.props.toggleIsFetching(true);            // включает картинку загрузки
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)  // в get запрос на API на получение пользователей добавляем параметры - страница по умолчанию, количество пользователей, отобрадаемых за раз
-            .then(response => {
-                this.props.toggleIsFetching(false);                           // ответ пришел - отключаем картинку загрузки
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
-            });
+
+        //так было - обращение из компоненты к API (к уровню DAL) без thunk
+        // this.props.toggleIsFetching(true);            // включает картинку загрузки
+
+        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize)          // раньше тут был сам api запрос (теперь он в папке api)
+        //     .then(data => {                                            // тк в api.js вернули из response именно data
+        //         this.props.toggleIsFetching(false);                    // ответ пришел - отключаем картинку загрузки
+        //         this.props.setUsers(data.items);
+        //         this.props.setTotalUsersCount(data.totalCount);
+        //     });
+
+        //так с thunk (логика прописана в userReducer)
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize); 
     }
 
     // теперь реализовано через собственный метод, тк нужно периодически обнавлять при смене страницы, а didMount обновляется только один раз после рендера
     onPageChanged = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true);              // включает картинку загрузки
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)  // в get запрос на API на получение пользователей добавляем параметры - страница по умолчанию, количество пользователей, отобрадаемых за раз
-            .then(response => {
-                this.props.toggleIsFetching(false);             // ответ пришел - отключаем картинку загрузки
-                this.props.setUsers(response.data.items);
-            });
+
+        //было так без thunk
+        // this.props.setCurrentPage(pageNumber);
+        // this.props.toggleIsFetching(true);
+
+        // usersAPI.getUsers(pageNumber, this.props.pageSize)
+        //     .then(data => {                                     // тк в api.js вернули из response именно data
+        //         this.props.toggleIsFetching(false);             // ответ пришел - отключаем картинку загрузки
+        //         this.props.setUsers(data.items);
+        //     });
+
+        // теперь так с thunk (логика прописана в userReducer)
+        this.props.getUsersThunkCreator(pageNumber, this.props.pageSize);
     }
 
     render() {
@@ -55,7 +56,10 @@ class UsersContainer extends React.Component {
                 onPageChanged={this.onPageChanged}
                 users={this.props.users}
                 follow={this.props.follow}
-                unfollow={this.props.unfollow} />
+                unfollow={this.props.unfollow}
+                followingInProgress={this.props.followingInProgress}
+                followThunkCreator={this.props.followThunkCreator}
+                unfollowThunkCreator={this.props.unfollowThunkCreator} />
         </>
         )
     }
@@ -69,10 +73,12 @@ const mapStateToProps = (state) => {    // превращает часть state
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 };
 
+// let AuthRedirectComponent = withAuthRedirect(UsersContainer)
 
 // было так
 // const mapDispatchToProps = (dispatch) => { // таким же образом передает в Dialogs callback функции как props
@@ -114,11 +120,23 @@ const mapStateToProps = (state) => {    // превращает часть state
 
 
 // и теперь так передаются action creators
-export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching
-})(UsersContainer);
+// export default connect(mapStateToProps, {
+//     followSuccess,
+//     unfollowSuccess,
+//     setCurrentPage,
+//     getUsersThunkCreator,
+//     followThunkCreator,
+//     unfollowThunkCreator
+// })(AuthRedirectComponent);
+
+export default compose(
+    connect(mapStateToProps, {
+        followSuccess,
+        unfollowSuccess,
+        setCurrentPage,
+        getUsersThunkCreator,
+        followThunkCreator,
+        unfollowThunkCreator
+    }),
+    withAuthRedirect
+)(UsersContainer);

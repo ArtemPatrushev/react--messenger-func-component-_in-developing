@@ -29,8 +29,37 @@ const Users = (props) => {
                                 <img className={s.userPhoto} src={u.photos.small != null ? u.photos.small : userPhoto} alt='img' />
                             </NavLink>
                             {u.followed ?
-                                <button onClick={() => { props.unfollow(u.id) }}>Unfollow</button>
-                                : <button onClick={() => { props.follow(u.id) }}>Follow</button>}
+                                <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {    
+                                    // если disabled={props.toggleFollowingProgress} будет true, то кнопка disable
+                                    // props.followingInProgress.some(id => id === u.id) --- followingInProgress это массив (массив - это псевдоистина, поэтому надо при помощи some() проверить совпадения id, и если хоть один id равен id пользователя, то кнопку disable)
+                                    // props.toggleFollowingProgress(true, u.id)
+                                    // usersAPI.unfollowUser(u.id)      // вместо API запроса напрямую, вызываем метод, в котором лежит запрос из api.js
+                                    //     .then(resultCode => {
+                                    //         if (resultCode === 0) {
+                                    //             props.unfollow(u.id);
+                                    //         }
+                                    //         props.toggleFollowingProgress(false, u.id)
+                                    //     });
+
+                                    //теперь так с thunk
+                                    props.unfollowThunkCreator(u.id);
+
+                                }}>Unfollow</button>
+
+                                : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {         // если disabled={props.toggleFollowingProgress} будет true, то кнопка disable
+                                    // props.toggleFollowingProgress(true, u.id)
+                                    // usersAPI.followUser(u.id)          // вместо API запроса напрямую, вызываем метод, в котором лежит запрос из api.js
+                                    //     .then(resultCode => {
+                                    //         if (resultCode === 0) {
+                                    //             props.follow(u.id);
+                                    //         }
+                                    //         props.toggleFollowingProgress(false, u.id)
+                                    //     });
+
+                                    //теперь так с thunk
+                                    props.followThunkCreator(u.id);
+
+                                }}>Follow</button>}
                         </div>
                         <div className={s.userInfo}>
                             <div className={s.aboutUser}>

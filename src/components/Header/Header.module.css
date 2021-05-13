@@ -11,3 +11,12 @@
 .loginBlock a {
   color: white;
 }
+
+.loginBlock {
+  padding: 10px;
+  width: 130px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
