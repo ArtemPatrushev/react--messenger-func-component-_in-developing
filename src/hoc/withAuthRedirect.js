@@ -5,9 +5,9 @@ import { Redirect } from 'react-router';
 
 let mapStateToPropsForRedirect = (state) => ({
     isAuth: state.auth.isAuth
-})
+});
 
-// HOC - принимает передаваемцю в качестве аргумента компоненту, выполняет нужный функционал и возвращает новую компоненту
+// HOC - принимает передаваемую в качестве аргумента компоненту, выполняет нужный функционал и возвращает новую компоненту
 export const withAuthRedirect = (Component) => {
 
     const RedirectComponent = (props) => {
@@ -21,4 +21,4 @@ export const withAuthRedirect = (Component) => {
     let ConnectedAuthRedirectComponent = connect(mapStateToPropsForRedirect)(RedirectComponent);
 
     return ConnectedAuthRedirectComponent;
-}
+};

@@ -1,17 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Profile from './Profile';
-import { getUserProfileThunkCreator, getStatusThC, updateStatusThC } from '../../redux/profileReducer';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
+import Profile from './Profile';
+import { getUserProfileThunkCreator, getStatusThC, updateStatusThC } from '../../redux/profileReducer';
+
 
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
         let userId = this.props.match.params.userId;
+        // debugger
         if (!userId) {
-            userId = 16886;
-        }
+            userId = this.props.authorizedUserId;
+            if (!userId) {
+                // по данному адресу можно перейти, чтобы сделать редирект, но лучше делать через тег Redirect
+                this.props.history.push('/login');
+            };
+        };
         // usersAPI.getUserProfile(userId)
         //     .then(data => {
         //         this.props.setUserProfile(data);
@@ -20,13 +26,15 @@ class ProfileContainer extends React.Component {
         setTimeout(() => {
             this.props.getStatusThC(userId);
         }, 1000);
-    }
+    };
+    
 
     render () {
+        console.log(this.props.profile);
         // {...this.props} таким способом передаются в презентационную компоненту сразу все props
         return <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatusThC={this.props.updateStatusThC} />
-    }
-}
+    };
+};
 
 
 // применение HOC в контейнерной компоненте --- отправляет ProfileContainer в WithAuthRedirect.js, там применяется функционал и возвращается новая компонента AuthRedirectComponent
@@ -44,7 +52,9 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.id,
+    isAuth: state.auth.isAuth
 });
 
 // let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
@@ -59,6 +69,7 @@ let mapStateToProps = (state) => ({
 
 // заменяет WithUrlDataContainerComponent и AuthRedirectComponent и WithUrlDataContainerComponent
 // все эти функции передаются в обратном порядке - та, которая исполняется первой, находится в самом низу (withAuthRedirect)
+
 export default compose(
     connect(mapStateToProps, { getUserProfileThunkCreator, getStatusThC, updateStatusThC }),
     withRouter,

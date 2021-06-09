@@ -6,7 +6,6 @@ const NavbarFriends = (props) => {
             <div className={s.friendPhoto}></div>
             <p>{props.name}</p>
         </div>
-        // <NavLink to={props.path} className={s.nav} activeClassName={s.active}>{props.name}</NavLink>
     );
 }
 

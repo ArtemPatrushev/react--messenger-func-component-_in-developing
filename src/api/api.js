@@ -51,7 +51,7 @@ export const usersAPI = {
         console.warn('Obsolete method. Please use profileAPI object');
         return profileAPI.getUserProfile(userId);
     }
-}
+};
 
 
 export const profileAPI = {
@@ -72,9 +72,7 @@ export const profileAPI = {
         // передаем адрес status + воторым параметром объект с данными
         return instance.put(`profile/status`, {status: status});
     },
-
-
-}
+};
 
 
 export const authAPI = {
@@ -85,12 +83,23 @@ export const authAPI = {
             });
     },
 
-    
+    login(email, password, rememberMe=false) {
+        return instance.post(`auth/login`, {email, password, rememberMe})
+            .then(response => {
+                return response.data
+            });
+    },
 
+    logout() {
+        return instance.delete(`auth/login`)
+            .then(response => {
+                return response.data
+            });
+    },
     // getProfilePhoto(userId) {
     //     return instance.get(`profile/${userId}`)
     //         .then(response => {
     //             return response.data.photos.small
     //         });
     // },
-}
+};

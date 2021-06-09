@@ -12,11 +12,10 @@ let initialState = {
         { name: 'Sveta', photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8VsGzl_ZOajsj5KaZpbvzW2bYtf-UZ3mo0A&usqp=CAU' },
         { name: 'Sasha', photo: 'https://image.freepik.com/free-photo/surikat-stands-in-alert-pose_174343-479.jpg' }
     ]
-}
+};
 
 const sidebarReducer = (state = initialState, action) => {
-
     return state;
-}
+};
 
 export default sidebarReducer;

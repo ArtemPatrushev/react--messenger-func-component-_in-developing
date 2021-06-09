@@ -5,7 +5,7 @@ const Music = (props) => {
         <div>
             Music
         </div>
-    )
-}
+    );
+};
 
 export default Music;

@@ -1,9 +1,8 @@
 import { usersAPI } from '../api/api';
 import { profileAPI } from '../api/api';
 
-
 const ADD_POST = 'ADD-POST';
-// const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const DELETE_POST = 'DELETE-POST'
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_STATUS = 'SET-STATUS';
 
@@ -23,7 +22,6 @@ let initialState = {
 // при помощи функции reducer мы получили state и action произвели преобразования, описанные в action над stat-ом и вернули преобразованный state
 
 const profileReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case ADD_POST: {
             let newPost = action.newPostBody;
@@ -34,7 +32,7 @@ const profileReducer = (state = initialState, action) => {
                 posts: [...state.posts, { id: 5, message: newPost, likeCount: 0 }],    // пушим в копию новый пост
                 newPostText: ''
             }; // возвращаем также копию
-        }
+        };
         // case UPDATE_NEW_POST_TEXT: {
         //     return {
         //         ...state ,
@@ -53,38 +51,44 @@ const profileReducer = (state = initialState, action) => {
                 status: action.status
             };
         }
+        case DELETE_POST: {
+            return {
+                ...state,
+                posts: state.posts.filter(p => p.id !== action.postId)
+            };
+        }
         default:
             return state;
-    }
-}
+    };
+};
 
 export const addPost = (newPostBody) => {
     return {
         type: ADD_POST,
         newPostBody
-    }
-}
+    };
+};
 
-// export const updateNewPostText = (newText) => {
-//     return {
-//         type: UPDATE_NEW_POST_TEXT,
-//         newText: newText
-//     }
-// }
+export const deletePost = (postId) => {
+    return {
+        type: DELETE_POST,
+        postId
+    };
+};
 
 export const setUserProfile = (profile) => {
     return {
         type: SET_USER_PROFILE,
         profile
-    }
-}
+    };
+};
 
 export const setStatus = (status) => {
     return {
         type: SET_STATUS,
         status
-    }
-}
+    };
+};
 
 
 
@@ -95,8 +99,8 @@ export const getUserProfileThunkCreator = (userId) => {
             .then(data => {
                 dispatch(setUserProfile(data));
             });
-    }
-}
+    };
+};
 
 export const getStatusThC = (status) => {
     // thunk-функция
@@ -105,8 +109,8 @@ export const getStatusThC = (status) => {
             .then(response => {
                 dispatch(setStatus(response.data));
             });
-    }
-}
+    };
+};
 
 export const updateStatusThC = (status) => {
     // thunk-функция
@@ -116,9 +120,9 @@ export const updateStatusThC = (status) => {
                 // проверка - если resultCode === 0 --- ошибки не было
                 if (response.data.resultCode === 0) {
                     dispatch(setStatus(status));
-                }
+                };
             });
-    }
-}
+    };
+};
 
 export default profileReducer;

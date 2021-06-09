@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import Dialogs from './Dialogs';
 import { addMessage } from '../../redux/dialogsReducer';     // импортировали actionCreater функции из state
-// import { Redirect } from 'react-router';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
-import { compose } from 'redux';
+
 
 
 // для функции f1 и f2 connect берет сам из store state и перердает его в качестве аргумента (при помощи getState())
@@ -11,10 +11,9 @@ const mapStateToProps = (state) => {    // превращает часть state
     return {
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
-        newMessageText: state.dialogsPage.newMessageText
-    }
+        // newMessageText: state.dialogsPage.newMessageText
+    };
 };
-
 
 // let AuthRedirectComponent = withAuthRedirect(Dialogs);
 

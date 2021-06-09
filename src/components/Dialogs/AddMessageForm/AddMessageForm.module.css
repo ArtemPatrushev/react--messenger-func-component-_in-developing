@@ -1,0 +1,11 @@
+.dialogForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+button {
+  height: 20px;
+  width: 100%;
+  margin-top: 10px;
+}

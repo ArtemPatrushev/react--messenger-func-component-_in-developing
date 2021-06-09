@@ -6,7 +6,7 @@ class ProfileStatus extends React.Component {
     state = {
         editMode: false,
         status: this.props.status
-    }
+    };
 
     componentDidUpdate(prevProps, pervState) {
         // в данном случае необходимо setState положить в условие, иначе начнется рекурсия (setState - componentDidUpdate - setState - componentDidUpdate и тд)
@@ -15,7 +15,7 @@ class ProfileStatus extends React.Component {
                 status: this.props.status
             });
         };
-    }
+    };
 
     // if (!props.profile) {
     //     return <Preloader />
@@ -31,21 +31,21 @@ class ProfileStatus extends React.Component {
         this.setState({
             editMode: true
         });
-    }
+    };
 
     deActivateEditMode = () => {
         this.setState({
             editMode: false
         });
         this.props.updateStatusThC(this.state.status);
-    }
+    };
 
     onStatusChange = (e) => {
         // получаем новое значение с input и записываем его в локальный state
         this.setState({
             status: e.currentTarget.value
         });
-    }
+    };
     
 
     render() {
@@ -62,8 +62,8 @@ class ProfileStatus extends React.Component {
                         autoFocus />
                     : <span onDoubleClick={this.activateEditMode}>{this.props.status || 'Enter your status'}</span>}
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
 export default ProfileStatus;

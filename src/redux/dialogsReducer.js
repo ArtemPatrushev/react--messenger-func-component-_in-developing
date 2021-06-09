@@ -32,7 +32,7 @@ const dialogsReducer = (state = initialState, action) => {
                 // если надо добавить элементы в начало то просто это же выражение ставим перед ...state.messages
             };
             // stateCopy.messages.push({id: 6, message: newMessage});
-        }
+        };
         // case INSERT_NEW_MESSAGE_TEXT:
         //     return {
         //         ...state,
@@ -41,15 +41,15 @@ const dialogsReducer = (state = initialState, action) => {
         //     // stateCopy.newMessageText = action.newText;
         default:
             return state;
-    }
-}
+    };
+};
 
 export const addMessage = (newMessageBody) => {
     return {
         type: ADD_MESSAGE,
         newMessageBody
-    }
-}
+    };
+};
 
 // export const insertNewMessageText = (newText) => {
 //     return {

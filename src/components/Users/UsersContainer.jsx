@@ -1,10 +1,24 @@
-import { connect } from 'react-redux';
-import { followSuccess, unfollowSuccess, setCurrentPage, toggleFollowingProgress, getUsersThunkCreator, followThunkCreator, unfollowThunkCreator} from '../../redux/userReducer';    // импортировали actionCreater функции из state
 import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import Users from './Users';
 import Preloader from '../Common/Preloader/Preloader';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
-import { compose } from 'redux';
+import { 
+    followSuccess, 
+    unfollowSuccess, 
+    setCurrentPage, 
+    getUsersThunkCreator, 
+    followThunkCreator, 
+    unfollowThunkCreator
+} from '../../redux/userReducer';    // импортировали actionCreater функции из state
+import { 
+    getPageSize, 
+    getUsers, 
+    getTotalUsersCount, 
+    getCurrentPage, 
+    getIsFetching, 
+    getFollowingInProgress
+} from '../../redux/usersSelectors';
 
 
 class UsersContainer extends React.Component {
@@ -24,7 +38,7 @@ class UsersContainer extends React.Component {
 
         //так с thunk (логика прописана в userReducer)
         this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize); 
-    }
+    };
 
     // теперь реализовано через собственный метод, тк нужно периодически обнавлять при смене страницы, а didMount обновляется только один раз после рендера
     onPageChanged = (pageNumber) => {
@@ -41,41 +55,53 @@ class UsersContainer extends React.Component {
 
         // теперь так с thunk (логика прописана в userReducer)
         this.props.getUsersThunkCreator(pageNumber, this.props.pageSize);
-    }
+    };
 
     render() {
         return (
-        <>
+            <>
                 {this.props.isFetching 
                     ? <Preloader />
                     : null}
-            <Users
-                totalUsersCount={this.props.totalUsersCount}
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}
-                onPageChanged={this.onPageChanged}
-                users={this.props.users}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
-                followingInProgress={this.props.followingInProgress}
-                followThunkCreator={this.props.followThunkCreator}
-                unfollowThunkCreator={this.props.unfollowThunkCreator} />
-        </>
-        )
-    }
-}
+                <Users
+                    totalUsersCount={this.props.totalUsersCount}
+                    pageSize={this.props.pageSize}
+                    currentPage={this.props.currentPage}
+                    onPageChanged={this.onPageChanged}
+                    users={this.props.users}
+                    follow={this.props.follow}
+                    unfollow={this.props.unfollow}
+                    followingInProgress={this.props.followingInProgress}
+                    followThunkCreator={this.props.followThunkCreator}
+                    unfollowThunkCreator={this.props.unfollowThunkCreator} />
+            </>
+        );
+    };
+};
 
 
 // для функции f1 и f2 connect берет сам из store state и перердает его в качестве аргумента (при помощи getState())
+// const mapStateToProps = (state) => {    // превращает часть state в props (передается нужные данные из store через state, которые прокидываются в dialogs как props)
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress
+//     }
+// };
+
 const mapStateToProps = (state) => {    // превращает часть state в props (передается нужные данные из store через state, которые прокидываются в dialogs как props)
+    // используем selectors
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
-    }
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
+    };
 };
 
 // let AuthRedirectComponent = withAuthRedirect(UsersContainer)
@@ -138,5 +164,5 @@ export default compose(
         followThunkCreator,
         unfollowThunkCreator
     }),
-    withAuthRedirect
+    // withAuthRedirect
 )(UsersContainer);

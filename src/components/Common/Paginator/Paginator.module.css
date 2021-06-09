@@ -1,0 +1,15 @@
+.selectedPage {
+    font-weight: bold;
+}
+
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    width: 80vw;
+    height: 50px;
+}
+
+.pagination span {
+    margin-right: 10px;
+}

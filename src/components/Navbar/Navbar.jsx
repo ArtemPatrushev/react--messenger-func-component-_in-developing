@@ -1,9 +1,10 @@
-import s from './Navbar.module.css';
 import NavbarFriends from './NavbarFriends/NavbarFriends';
 import NavbarItem from './NavbarItem/NavbarItem';
+import s from './Navbar.module.css';
 
 const Navbar = (props) => {
     let newState = props.store.getState();
+    
 
     let navbarElements = newState.sidebar.sidebarMenu.map((n) => {
         return <NavbarItem path={n.path} name={n.name} />

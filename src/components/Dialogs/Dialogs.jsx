@@ -1,28 +1,8 @@
-import { Field, reduxForm } from 'redux-form';
-import s from './Dialogs.module.css';
+import React from 'react';
+import { DialogsReduxForm} from './AddMessageForm/AddMessageForm';
 import DialogItem from './DialogsItem/DialogItem';
 import Message from './Message/Message';
-import React from 'react';
-// import { Redirect } from 'react-router';
-
-const AddMessageForm = (props) => {
-    return (
-        <form className={s.dialogForm} onSubmit={props.handleSubmit}>
-            <Field 
-                name='newMessageBody' 
-                component='textarea' 
-                placeholder='Write new message'
-            />
-            <button>Send</button>
-        </form>
-    )
-}
-
-const DialogsReduxForm = reduxForm({
-    // каждая форма должна иметь уникальное строковое имя
-    form: 'dialogsAddMessageForm'
-    // передаем форму, которую необходимо обернуть
-})(AddMessageForm);
+import s from './Dialogs.module.css';
 
 const Dialogs = (props) => {
     
@@ -36,7 +16,7 @@ const Dialogs = (props) => {
 
     let addNewMessage = (values) => {
         props.addMessage(values.newMessageBody);
-    }
+    };
     
     // let newDialogMessage = React.createRef();
 
@@ -72,6 +52,6 @@ const Dialogs = (props) => {
             </div>
         </div>
     );
-}
+};
 
 export default Dialogs;
