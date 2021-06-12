@@ -54,11 +54,11 @@ let store = {
         console.log('State changed');
     },
     subscribe(observer) {
-        this._callSubscriber = observer;         // observer - это паттерн (почитать про него)
+        this._callSubscriber = observer;
     },
     dispatch(action) {
         
-        this._state.profilePage = profileReducer(this._state.profilePage, action);  // берем из state profilePage и присваиваем ему функцию reducer, которой отдаем тоже этот state и пришедший action (приходит со страницы dialogs, например через actionCreator). В reducer state меняется, и приходит обратно изменненный, потом присваивается бывшему state --- бывший state меняется
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
         this._state.sidebar = sidebarReducer(this._state.sidebar, action);
 

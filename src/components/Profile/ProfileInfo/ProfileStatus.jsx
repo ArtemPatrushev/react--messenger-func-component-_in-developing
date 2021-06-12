@@ -41,7 +41,6 @@ class ProfileStatus extends React.Component {
     };
 
     onStatusChange = (e) => {
-        // получаем новое значение с input и записываем его в локальный state
         this.setState({
             status: e.currentTarget.value
         });
@@ -49,8 +48,6 @@ class ProfileStatus extends React.Component {
     
 
     render() {
-        // onBlur срабатывает, когда убираем фокус
-        // в span передаем статус через this.props.status (из BLL), а в input передаем из this.state.status (локальный state) --- span тражает статус из BLL, в то время модно менять через input локальный статус, затем отправлять запрос на сервер, чтобы его изменить, откуда он снова поступает в span
         return (
             <div>
                 {this.state.editMode

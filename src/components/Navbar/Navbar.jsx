@@ -21,18 +21,6 @@ const Navbar = (props) => {
             </div>
             <div className={s.friendsList}>
                 {navbarFriends}
-                {/* <div className={s.friendItem}>
-                    <div className={s.friendPhoto}></div>
-                    <p>Andrew</p>
-                </div>
-                <div className={s.friendItem}>
-                    <div className={s.friendPhoto}></div>
-                    <p>Sveta</p>
-                </div>
-                <div className={s.friendItem}>
-                    <div className={s.friendPhoto}></div>
-                    <p>Sasha</p>
-                </div> */}
             </div>
         </nav>
     )

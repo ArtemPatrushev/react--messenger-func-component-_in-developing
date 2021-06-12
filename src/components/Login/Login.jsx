@@ -46,13 +46,10 @@ const LoginForm = (props) => {
 //<Field component={'input'} placeholder='Login' /> --- спец компонента из redux-from вместо input
 
 const LoginReduxForm = reduxForm({
-    // каждая форма должна иметь уникальное строковое имя
     form: 'login'
-    // передаем форму, которую необходимо обернуть
 })(LoginForm);
 
 const Login = (props) => {
-    // formData - данные из Field, которые пришли из LoginReduxFor
     const onSubmit = (formData) => {
         let { email, password, rememberMe } = formData;
         props.loginThC(email, password, rememberMe);

@@ -17,21 +17,6 @@ const Dialogs = (props) => {
     let addNewMessage = (values) => {
         props.addMessage(values.newMessageBody);
     };
-    
-    // let newDialogMessage = React.createRef();
-
-    // let OnAddMessageClick = () => {
-    //     props.addMessage();
-    // }
-
-    // let OnNewMessageTextChange = () => {
-    //     let newText = newDialogMessage.current.value;
-    //     props.insertNewMessageText(newText);
-    // };
-
-    // if (!props.isAuth) {
-    //     return <Redirect to={'/login'} />    // если не авторизован, то перекинет на страницу login
-    // };
 
     return (
         <div className={s.dialogs}>
@@ -41,14 +26,6 @@ const Dialogs = (props) => {
             <div className={s.messages}>
                 {messagesElements}
                 <DialogsReduxForm onSubmit={addNewMessage} />
-                {/* <form className={s.dialogForm}>
-                    <textarea cols="30" rows="2"
-                    placeholder='Write new message'
-                    ref={newDialogMessage}
-                    value={props.newMessageText}
-                    onChange={OnNewMessageTextChange} />
-                    <button onClick={OnAddMessageClick}>Send</button>
-                </form> */}
             </div>
         </div>
     );

@@ -18,17 +18,6 @@ import './App.css';
 class App extends React.Component {
 
   componentDidMount() {
-    // usersAPI.setAuthUserDataInfo()         // вместо API запроса напрямую, вызываем метод, в котором лежит запрос из api.js
-    //     .then(data => {
-    //         if (data.resultCode === 0) {     // в response придет ответ с API, проверяем response.data.resultCode === 0 (из документации API samurai значит, что авторизован) --- вызываем setAuthUserData (данные пользователя)
-    //             let { id, email, login } = data.data;    //  response.data.data.login (две data) --- тк у axios стандартно данные в data и бэкэнд разработчик в API тоже упаковал данные в data
-    //             this.props.setAuthUserData(id, email, login);       // здесь важна последовательность переменных
-    //             usersAPI.getProfilePhoto()
-    //                 .then(photo => {
-    //                     this.props.setUserPhoto(photo);
-    //                 })   
-    //         }
-    //     });
     this.props.initializeApp();
   }
 

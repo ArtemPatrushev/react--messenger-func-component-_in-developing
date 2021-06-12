@@ -5,15 +5,13 @@ import { logoutThC} from '../../redux/auth-reducer';
 
 class HeaderContainer extends React.Component {
     render() {
-        return <Header {...this.props} />    // пробрасываем все пропсы
+        return <Header {...this.props} />
     }
 }
 
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login,
-    // photo: state.auth.photo
-    // profile: state.profilePage.profile,
 });
 
 export default connect(mapStateToProps, { logoutThC })(HeaderContainer);

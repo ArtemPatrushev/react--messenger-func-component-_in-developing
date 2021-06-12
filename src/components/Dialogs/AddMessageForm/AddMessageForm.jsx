@@ -23,7 +23,5 @@ const AddMessageForm = (props) => {
 };
 
 export const DialogsReduxForm = reduxForm({
-    // каждая форма должна иметь уникальное строковое имя
     form: 'dialogsAddMessageForm'
-    // передаем форму, которую необходимо обернуть
 })(AddMessageForm);
