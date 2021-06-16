@@ -1,7 +1,10 @@
 import React from 'react';
 import { Route, withRouter } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import store from './redux/reduxStore';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
@@ -54,6 +57,18 @@ const mapStateToProps = (state) => ({
   initialized: state.app.initialized
 });
 
-export default compose(
+const AppContainer = compose(
   withRouter,
   connect(mapStateToProps, { initializeApp }))(App);
+
+const SamuraiJSApp = (props) => {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppContainer store={store} />
+      </Provider>
+    </BrowserRouter>
+  );
+};
+
+export default SamuraiJSApp;
