@@ -18,7 +18,7 @@ const Users = (props) => {
                                         followingInProgress={props.followingInProgress} 
                                         unfollowThunkCreator={props.unfollowThunkCreator}
                                         followThunkCreator={props.followThunkCreator}
-            />)};
+            />)}
         </div>
     );
 };

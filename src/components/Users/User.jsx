@@ -13,11 +13,11 @@ const User = (props) => {
                             <img className={s.userPhoto} src={props.user.photos.small != null ? props.user.photos.small : userPhoto} alt='img' />
                         </NavLink>
                         {props.user.followed 
-                            ?   <button disabled={props.followingInProgress.some(id => id === props.user.id)} onClick={() => {
+                            ?   <button className={s.requestButton} disabled={props.followingInProgress.some(id => id === props.user.id)} onClick={() => {
                                     props.unfollowThunkCreator(props.user.id);
 
                                 }}>Unfollow</button>
-                            : <button disabled={props.followingInProgress.some(id => id === props.user.id)} onClick={() => {
+                            : <button className={s.requestButton} disabled={props.followingInProgress.some(id => id === props.user.id)} onClick={() => {
                                 props.followThunkCreator(props.user.id);
 
                                 }}>Follow</button>}

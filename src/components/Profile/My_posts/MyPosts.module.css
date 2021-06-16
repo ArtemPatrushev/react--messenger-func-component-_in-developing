@@ -23,3 +23,7 @@
   margin-top: 10px;
   align-self: flex-end;
 }
+
+.postButton {
+  width: 200px;
+}
