@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react--messenger-func-component-_in-developing/static/css/main.490d00a8.chunk.css",
-    "main.js": "/react--messenger-func-component-_in-developing/static/js/main.f7b93214.chunk.js",
-    "main.js.map": "/react--messenger-func-component-_in-developing/static/js/main.f7b93214.chunk.js.map",
+    "main.js": "/react--messenger-func-component-_in-developing/static/js/main.1e1879d9.chunk.js",
+    "main.js.map": "/react--messenger-func-component-_in-developing/static/js/main.1e1879d9.chunk.js.map",
     "runtime-main.js": "/react--messenger-func-component-_in-developing/static/js/runtime-main.f9e484d9.js",
     "runtime-main.js.map": "/react--messenger-func-component-_in-developing/static/js/runtime-main.f9e484d9.js.map",
     "static/js/2.915c58d6.chunk.js": "/react--messenger-func-component-_in-developing/static/js/2.915c58d6.chunk.js",
@@ -27,6 +27,6 @@
     "static/js/runtime-main.f9e484d9.js",
     "static/js/2.915c58d6.chunk.js",
     "static/css/main.490d00a8.chunk.css",
-    "static/js/main.f7b93214.chunk.js"
+    "static/js/main.1e1879d9.chunk.js"
   ]
 }
