@@ -17,7 +17,6 @@
 
 .app_wrapper_content {
   grid-area: content;
-  background: lightyellow;
   display: flex;
   flex-direction: column;
 }

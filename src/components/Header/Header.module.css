@@ -1,11 +1,14 @@
 .header {
   grid-area: header;
-  background: lightgreen;
+  background: #3f51b5;
   display: flex;
   justify-content: space-between;
+  padding: 10px;
 }
 .header img {
-  width: 50px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .loginBlock a {
@@ -13,7 +16,6 @@
 }
 
 .loginBlock {
-  padding: 10px;
   width: 130px;
   display: flex;
   justify-content: space-between;
@@ -28,4 +30,13 @@
 
 .logoutBtn {
   width: auto;
+  margin-top: 10px;
+  border: none;
+  font: inherit;
+  font-size: 12px;
+  font-weight: normal;
+  color: #3f51b5;
+  background-color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
 }

@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
 import Profile from './Profile';
-import { getUserProfileThunkCreator, getStatusThC, updateStatusThC } from '../../redux/profileReducer';
+import { getUserProfileThunkCreator, getStatusThC, updateStatusThC, savePhotoThC, saveProfileThC } from '../../redux/profileReducer';
 
 
 class ProfileContainer extends React.Component {
 
-    componentDidMount() {
+    refreshProfile() {
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = this.props.authorizedUserId;
@@ -17,15 +17,30 @@ class ProfileContainer extends React.Component {
             };
         };
         this.props.getUserProfileThunkCreator(userId);
-        setTimeout(() => {
-            this.props.getStatusThC(userId);
-        }, 1000);
+        this.props.getStatusThC(userId);
+    }
+
+    componentDidMount() {
+        this.refreshProfile();
     };
+
+    componentDidUpdate(prevProps, prevState, snapShot) {
+        // если настоящий userId не равен предыдущему, то вызывается метод refreshProfile() - без такого условия получится бесконечный цикл
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile();
+        }
+    }
     
 
     render () {
         console.log(this.props.profile);
-        return <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatusThC={this.props.updateStatusThC} />
+        return <Profile 
+                    {...this.props} 
+                    isOwner={!this.props.match.params.userId}
+                    profile={this.props.profile} 
+                    status={this.props.status} 
+                    updateStatusThC={this.props.updateStatusThC} 
+                    savePhotoThC={this.props.savePhotoThC} />
     };
 };
 
@@ -37,6 +52,6 @@ let mapStateToProps = (state) => ({
 });
 
 export default compose(
-    connect(mapStateToProps, { getUserProfileThunkCreator, getStatusThC, updateStatusThC }),
+    connect(mapStateToProps, { getUserProfileThunkCreator, getStatusThC, updateStatusThC, savePhotoThC, saveProfileThC }),
     withRouter,
 )(ProfileContainer);

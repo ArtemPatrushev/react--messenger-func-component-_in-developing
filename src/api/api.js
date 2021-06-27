@@ -54,6 +54,23 @@ export const profileAPI = {
     updateStatus(status) {
         return instance.put(`profile/status`, {status: status});
     },
+
+    savePhoto(file) {
+        // константа formData нужна для отправки файла на сервер
+        const formData = new FormData();
+        // добавляем файл со свойством image
+        formData.append('image', file)
+        return instance.put('profile/photo', formData, {
+            // в headers указываем Content-Type
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
+
+    saveProfile(profileData) {
+        return instance.put(`profile`, profileData);
+    }
 };
 
 

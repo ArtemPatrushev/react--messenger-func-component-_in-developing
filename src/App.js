@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Route, withRouter } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
+// import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -35,7 +36,7 @@ class App extends React.Component {
     return (
       <>
         <div className='app-wrapper'>
-          <HeaderContainer />
+          <HeaderContainer store={this.props.store} />
           <Navbar store={this.props.store} />
           <div className='app_wrapper_content'>
             <Route path='/dialogs'
@@ -76,11 +77,13 @@ const AppContainer = compose(
 
 const SamuraiJSApp = (props) => {
   return (
-    <BrowserRouter>
+    // <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
       <Provider store={store}>
         <AppContainer store={store} />
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
+    // </BrowserRouter>
   );
 };
 

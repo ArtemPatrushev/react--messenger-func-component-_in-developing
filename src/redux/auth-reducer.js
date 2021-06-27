@@ -40,7 +40,6 @@ export const getAuthUserDataInfoThunkCreator = (userId) => {
                     let { id, email, login } = data.data;
                     dispatch(setAuthUserData(id, email, login, true));
                     console.log(id, email, login);
-                    debugger;
                 };
             });
     };
