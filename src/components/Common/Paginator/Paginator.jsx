@@ -20,7 +20,7 @@ const Paginator = (props) => {
     return (
         <div className={s.pagination}>
             { portionNumber > 1 && 
-            <button className={s.paginatorButton} onClick={() => {setPortionNumber(portionNumber - 1)}}>PREV</button> } 
+            <button className={s.paginatorButton} onClick={() => {setPortionNumber(portionNumber - 1)}}>Prev</button> } 
             {pages
                 .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map((p) => {
@@ -36,20 +36,10 @@ const Paginator = (props) => {
             {portionCount > portionNumber && 
                 <button className={s.paginatorButton} onClick={() => {
                     setPortionNumber(portionNumber + 1)
-                }}>NEXT</button>  
+                }}>Next</button>  
             }
         </div>
     );
-
-    // return (
-    //     <div className={s.pagination}>
-    //         {pages.map(p => {
-    //             return <span 
-    //                 className={props.currentPage === p && s.selectedPage}
-    //                 onClick={ (e) => {props.onPageChanged(p)} }>{p}</span>    // если выбраная страничка, то добавит стиль
-    //         })};
-    //     </div>
-    // );
 };
 
 export default Paginator;
