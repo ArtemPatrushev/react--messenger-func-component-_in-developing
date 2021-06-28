@@ -1,8 +1,8 @@
 import s from './Settings.module.css';
 
-const Settings = (props) => {
+const Settings = () => {
     return (
-        <div>
+        <div className={s.header}>
             Settings
         </div>
     );

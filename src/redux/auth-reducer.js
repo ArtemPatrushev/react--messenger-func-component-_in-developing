@@ -25,7 +25,6 @@ const authReducer = (state = initialState, action) => {
 };
 
 export const setAuthUserData = (id, email, login, isAuth) => {
-    console.log(id, email, login);
     return {
         type: SET_USER_DATA,
         payload: { id, email, login, isAuth}
@@ -39,7 +38,6 @@ export const getAuthUserDataInfoThunkCreator = (userId) => {
                 if (data.resultCode === 0) {
                     let { id, email, login } = data.data;
                     dispatch(setAuthUserData(id, email, login, true));
-                    console.log(id, email, login);
                 };
             });
     };

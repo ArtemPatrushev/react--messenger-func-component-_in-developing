@@ -1,7 +1,4 @@
-/* .header {
-  grid-area: header;
-  background: lightgreen;
-} */
-.header img {
-  width: 50px;
+
+.header {
+  font-size: 18px;
 }

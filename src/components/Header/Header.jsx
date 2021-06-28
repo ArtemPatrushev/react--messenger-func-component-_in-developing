@@ -1,10 +1,8 @@
 import { NavLink } from 'react-router-dom';
+
 import s from './Header.module.css';
-// import userPhoto from '../../assets/images/user.png';
 
 const Header = (props) => {
-    console.log(props);
-
     let Logout = () => {
         props.logoutThC();
     }
@@ -19,6 +17,6 @@ const Header = (props) => {
             <img src='https://pyxis.nymag.com/v1/imgs/e9a/025/22556a8254656cfc6be215d2e8ef405015-ted-lasso.rsquare.w700.jpg' alt='img' />
         </div>
     </header>;
-}
+};
 
 export default Header;

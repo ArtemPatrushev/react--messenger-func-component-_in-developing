@@ -2,8 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
+import { 
+    getUserProfileThunkCreator, 
+    getStatusThC, updateStatusThC, 
+    savePhotoThC, saveProfileThC 
+} from '../../redux/profileReducer';
 import Profile from './Profile';
-import { getUserProfileThunkCreator, getStatusThC, updateStatusThC, savePhotoThC, saveProfileThC } from '../../redux/profileReducer';
 
 
 class ProfileContainer extends React.Component {
@@ -18,7 +22,7 @@ class ProfileContainer extends React.Component {
         };
         this.props.getUserProfileThunkCreator(userId);
         this.props.getStatusThC(userId);
-    }
+    };
 
     componentDidMount() {
         this.refreshProfile();
@@ -28,12 +32,11 @@ class ProfileContainer extends React.Component {
         // если настоящий userId не равен предыдущему, то вызывается метод refreshProfile() - без такого условия получится бесконечный цикл
         if (this.props.match.params.userId !== prevProps.match.params.userId) {
             this.refreshProfile();
-        }
-    }
+        };
+    };
     
 
     render () {
-        console.log(this.props.profile);
         return <Profile 
                     {...this.props} 
                     isOwner={!this.props.match.params.userId}

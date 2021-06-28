@@ -13,21 +13,21 @@ export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
-                return response.data
+                return response.data;
             });
     },
 
     followUser(userId) {
         return instance.post(`follow/${userId}`, {})
             .then(response => {
-                return response.data.resultCode
+                return response.data.resultCode;
             });
     },
 
     unfollowUser(userId) {
         return instance.delete(`follow/${userId}`)
             .then(response => {
-                return response.data.resultCode
+                return response.data.resultCode;
             });
     },
 
@@ -43,12 +43,12 @@ export const profileAPI = {
     getUserProfile(userId) {
         return instance.get(`profile/${userId}`)
             .then(response => {
-                return response.data
+                return response.data;
             });
     },
 
     getStatus(userId) {
-        return instance.get(`profile/status/${userId}`)
+        return instance.get(`profile/status/${userId}`);
     },
 
     updateStatus(status) {
@@ -59,13 +59,13 @@ export const profileAPI = {
         // константа formData нужна для отправки файла на сервер
         const formData = new FormData();
         // добавляем файл со свойством image
-        formData.append('image', file)
+        formData.append('image', file);
         return instance.put('profile/photo', formData, {
             // в headers указываем Content-Type
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-        })
+        });
     },
 
     saveProfile(profileData) {
@@ -78,21 +78,21 @@ export const authAPI = {
     getMe() {
         return instance.get(`auth/me`)
             .then(response => {
-                return response.data
+                return response.data;
             });
     },
 
     login(email, password, rememberMe=false) {
         return instance.post(`auth/login`, {email, password, rememberMe})
             .then(response => {
-                return response.data
+                return response.data;
             });
     },
 
     logout() {
         return instance.delete(`auth/login`)
             .then(response => {
-                return response.data
+                return response.data;
             });
     },
 };

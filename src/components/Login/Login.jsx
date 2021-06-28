@@ -5,6 +5,7 @@ import { Redirect } from 'react-router';
 import { required, maxLengthCreator } from '../../utils/validators/validators';
 import { Input } from '../Common/FormsControls/FormsControls';
 import { loginThC, logoutThC } from '../../redux/auth-reducer';
+
 import s from './Login.module.css';
 
 const maxLength40 = maxLengthCreator(40);

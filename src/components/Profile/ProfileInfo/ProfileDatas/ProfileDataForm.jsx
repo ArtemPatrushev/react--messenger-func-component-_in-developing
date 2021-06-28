@@ -1,22 +1,22 @@
 import { reduxForm } from 'redux-form';
-import { createField, Input, Textarea } from '../../Common/FormsControls/FormsControls';
-import s from './ProfileInfo.module.css';
+import { createField, Input, Textarea } from '../../../Common/FormsControls/FormsControls';
+import s from './ProfileData.module.css';
 
 const ProfileDataForm = (props) => {
     return (
-        <form 
+        <form
             className={s.user_info}
             onSubmit={props.handleSubmit}>
             <div className={s.userLogin}>
                 Name:
                 {createField('Full name', 'fullName', [], Input)}
             </div>
-            <button>Save</button>
+            <button className={s.form_button}>Save</button>
             {props.error && <div className={s.formSummaryError}>
                 {props.error}
             </div>}
             <div className={s.user_info_text}>
-                <div className={s.user_info_text_label}>
+                {/* <div className={s.user_info_text_label}>
                     <p>Date of birth:</p>
                 </div>
                 <div className={s.user_info_text_label}>
@@ -24,7 +24,7 @@ const ProfileDataForm = (props) => {
                 </div>
                 <div className={s.user_info_text_label}>
                     <p>Education:</p>
-                </div>
+                </div> */}
                 <div className={s.user_info_text_label}>
                     <p>About me: <span>{createField('About me', 'aboutMe', [], Textarea)}</span></p>
                 </div>
@@ -36,8 +36,8 @@ const ProfileDataForm = (props) => {
                 </div>
                 <p>Contacts: {Object.keys(props.profile.contacts).map(key => {
                     return (
-                        <div 
-                            key={key} 
+                        <div
+                            key={key}
                             className={s.user_info_text_label}>
                             <p>{key}: <span>{createField(key, 'contacts.' + key, [], Input)}</span></p>
                         </div>
@@ -45,8 +45,8 @@ const ProfileDataForm = (props) => {
                 })}</p>
             </div>
         </form>
-    )
-}
+    );
+};
 
 // createField - специальная функция-шаблон для форм, которую создали в FromsControlls
 

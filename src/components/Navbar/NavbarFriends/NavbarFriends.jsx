@@ -7,6 +7,6 @@ const NavbarFriends = (props) => {
             <p>{props.name}</p>
         </div>
     );
-}
+};
 
 export default NavbarFriends;

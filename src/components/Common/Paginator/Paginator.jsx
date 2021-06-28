@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-// import { getCurrentPage } from '../../../redux/usersSelectors';
-import s from './Paginator.module.css';
 import cn from 'classnames';
+
+import s from './Paginator.module.css';
 
 const Paginator = (props) => {
     
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);   // таким образом получаем постраничное деление, Math.ceil - округление до большего числа в любом случае
+    // таким образом получаем постраничное деление, Math.ceil - округление до большего числа в любом случае
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
 
     for (let i = 1; i <= pagesCount; i++) {

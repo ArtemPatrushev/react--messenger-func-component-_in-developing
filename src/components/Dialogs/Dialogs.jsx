@@ -2,6 +2,7 @@ import React from 'react';
 import { DialogsReduxForm} from './AddMessageForm/AddMessageForm';
 import DialogItem from './DialogsItem/DialogItem';
 import Message from './Message/Message';
+
 import s from './Dialogs.module.css';
 
 const Dialogs = (props) => {

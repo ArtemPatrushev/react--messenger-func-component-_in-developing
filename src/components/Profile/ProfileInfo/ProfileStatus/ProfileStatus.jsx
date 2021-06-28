@@ -17,10 +17,6 @@ class ProfileStatus extends React.Component {
         };
     };
 
-    // if (!props.profile) {
-    //     return <Preloader />
-    // }
-
     // в данном случае нужна стрелочная функция, чтобы не потерялся контекст при callback на doubleClick
     activateEditMode = () => {
         // данный способ изменения свойства editMode нежелателен, тк приходится обновлять локальный state через forceUpdate

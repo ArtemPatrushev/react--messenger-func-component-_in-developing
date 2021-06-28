@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Header from './Header';
 import { logoutThC } from '../../redux/auth-reducer';
-// import { getUserProfileThunkCreator } from '../../redux/profileReducer';
+import Header from './Header';
 
 class HeaderContainer extends React.Component {
 
@@ -16,8 +15,8 @@ class HeaderContainer extends React.Component {
         return <Header 
                     {...this.props}
                     /* profile={this.props.profile}*/ />
-    }
-}
+    };
+};
 
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
